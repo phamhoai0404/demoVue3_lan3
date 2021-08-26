@@ -15,19 +15,16 @@
 
 <script>
     export default {
-        data() {
-            return {
-                listData: null,
-            }
-        },
+        
         //created rồi đến mousted nhớ nhé, created nó hoạt động trước rồi mới đến mousted load DOM nhá 
         created() {
-            fetch("http://localhost:3000/listdata")
-                .then(response => response.json())//Chuyển về dạng json vì trong document của nó bảo thế nhá 
-                .then(data => {
-                    console.log(data);
-                    this.listData = data;
-                });
+            this.$store.dispatch("getAllTransaction");
+            
+        },
+        computed: {
+            listData(){
+                return this.$store.state.allTransaction;
+            }
         }
     }
 </script>

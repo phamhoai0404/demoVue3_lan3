@@ -5,7 +5,9 @@ const store = createStore({
 		return {
 			count: 1000,
 			transaction: null,
-			numbers:[1,2,34,5 ]
+			numbers:[1,2,34,5 ],
+			allTransaction: [],
+			error: null,
 		};
 	},
 
@@ -20,6 +22,12 @@ const store = createStore({
 		setOneData(state, data) {
 			state.transaction = data;
 		},
+		setAllTransaction( state, data){
+			state.allTransaction = data;
+		},
+		setError(state, data){
+			state.error = data;
+		}
 	},
 	actions: {
 		//Cái này mặc định chỉ có 2  thuộc tính truyền vào thôi
@@ -34,6 +42,21 @@ const store = createStore({
 			console.log(data);
 			commit("setOneData", data);
 		},
+
+
+		async getAllTransaction({ commit }){
+			try {
+				const run = await fetch("http://localhost:3000/listdata");
+				if (!run.ok) throw new Error("Something went wrong");
+				const data = await run.json();
+				console.log( "vào store ");
+				commit("setAllTransaction", data);
+
+			} catch (err) {
+				commit("setError", err)
+				console.log(err);
+			}
+		}
 	},
 });
 
