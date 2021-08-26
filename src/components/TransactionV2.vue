@@ -26,6 +26,7 @@
             const $store = useStore();
             $store.dispatch("getAllTransaction");
 
+            // Thay đổi thì nó sẽ thực hiện ở đây nhá 
             const listData = computed ( ()=>{
                 return $store.state.allTransaction;
             })
@@ -33,9 +34,14 @@
                 return $store.state.error;
             })
 
+            const hoaaaaaaaa = ()=>({ xinhgia: 10, name: 20});
+            console.log( hoaaaaaaaa().xinhgia);
+
+
             return{
                 listData,
-                error
+                error,
+                hoaaaaaaaa
             }
         }
     }
